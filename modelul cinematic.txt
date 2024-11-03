@@ -1,0 +1,14 @@
+cinematic1 m 
+traiect m
+length = 1000
+interpolare = legarea polilor starilor in timpi
+adaugam un Q3 
+cinematica inversa importanta
+dupa ce si a facut traiectoria robotul
+
+unghistart(unghiu1Start, unghiu1End)
+mai bagam un Q3
+matrici
+
+pana data viitoare traiectoria
+
