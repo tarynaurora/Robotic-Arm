@@ -30,23 +30,14 @@ endEffectorPositions = zeros(3, length(timeSamples));
         xlabel 'x'
         ylabel 'y'
         zlabel 'z'
-        axis([-3, 3, -3, 3, -3, 3])
+        axis([-6, 6, -6, 6, -6, 6])
         view(10, 10);
 
         drawnow;
     end
 
+    figure;
     % Draw the final trajectory
     plot3(endEffectorPositions(1,:), endEffectorPositions(2,:), endEffectorPositions(3,:), 'LineStyle', '-.');
-
-    % Adjust axes to fit the final data
-    axis tight;
-
-    % Additional plot settings
-    figure
-    xlabel 'x'
-    ylabel 'y'
-    grid on
-    axis equal
 
 end

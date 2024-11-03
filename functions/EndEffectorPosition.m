@@ -35,7 +35,7 @@ Te_0 = T3_0 * Te_3; % Base frame to end effector transformation.
 % Extraction of the positions of the arm segments
 arm1 = [T1_0(1:3, 4), T2_0(1:3, 4)];
 arm2 = [T2_0(1:3, 4), T3_0(1:3, 4)];
-arm3 = [T3_0(1:3, 4), Te_3(1:3, 4)];
+arm3 = [T3_0(1:3, 4), Te_0(1:3, 4)];
 
 % Final position of the end effector in global coordinates
 pGripper = Te_0(1:3, 4);
