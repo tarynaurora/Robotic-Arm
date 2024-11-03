@@ -12,9 +12,7 @@ Q3 = linspace(thetaStart(3), thetaStop(3), length(timeSamples));  % Translation 
 % Initialize matrix to hold end-effector positions
 endEffectorPositions = zeros(3, length(timeSamples));             
 
- figure 
- hold on
- grid on
+ figure;
 
   % Generate data for animation
     for i = 1:length(timeSamples)
@@ -22,15 +20,20 @@ endEffectorPositions = zeros(3, length(timeSamples));
         % Calculate position based on interpolated angles
         [pGripper, arm1, arm2, arm3] = EndEffectorPosition(Q1(i), Q2(i), Q3(i));  % Get positions and segments
         endEffectorPositions(:,i) = pGripper;  % Use interpolated angles
+
+        clf;
+
         % Call the plotting function for the robotic arm
         plotSystem(arm1, arm2, arm3);
 
-        pause(0.01)
+        
         xlabel 'x'
         ylabel 'y'
         zlabel 'z'
         axis([-3, 3, -3, 3, -3, 3])
         view(10, 10);
+
+        drawnow;
     end
 
     % Draw the final trajectory
