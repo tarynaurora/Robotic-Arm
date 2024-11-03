@@ -26,7 +26,7 @@ zlabel('Z-axis', 'Color', labelColor);
 
 % Set equal axis scaling and define axis limits
 axis equal;
-axis([-6, 6, -6, 6, -6, 6]); 
+axis([-3, 3, -3, 3, -3, 3]); 
 
 % Title
 title('3D Visualization of Robotic Arm', 'Color', [0.60, 0.50, 0.70]); 

@@ -11,12 +11,10 @@ Q3 = linspace(thetaStart(3), thetaStop(3), length(timeSamples));  % Translation 
 
 % Initialize matrix to hold end-effector positions
 endEffectorPositions = zeros(3, length(timeSamples));             
+figure;
 
- figure;
-
-  % Generate data for animation
+% Generate data for animation
     for i = 1:length(timeSamples)
-
         % Calculate position based on interpolated angles
         [pGripper, arm1, arm2, arm3] = EndEffectorPosition(Q1(i), Q2(i), Q3(i));  % Get positions and segments
         endEffectorPositions(:,i) = pGripper;  % Use interpolated angles
@@ -38,6 +36,6 @@ endEffectorPositions = zeros(3, length(timeSamples));
 
     figure;
     % Draw the final trajectory
-    plot3(endEffectorPositions(1,:), endEffectorPositions(2,:), endEffectorPositions(3,:), 'LineStyle', '-.');
-
+    plot3(endEffectorPositions(1,:), endEffectorPositions(2,:), endEffectorPositions(3,:), 'LineStyle', '-.', 'Color', [0.75, 0.65, 0.85]);
+   
 end
