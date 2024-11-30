@@ -1,0 +1,81 @@
+function [Q, dQ, ddQ] = cubicTrajectory(q, T, n, timp)
+    % q: matrice 2x2 de poziții (q0, q1)
+    % T: timpul total
+    % n: numărul de pași
+    % timp: vectorul de timp
+    
+    Q = zeros(2, n);
+    dQ = zeros(2, n);
+    ddQ = zeros(2, n);
+    
+    for i = 1:2
+        a0 = q(i, 1);
+        a1 = 0;
+        a2 = 3 * (q(i, 2) - q(i, 1)) / T^2;
+        a3 = -2 * (q(i, 2) - q(i, 1)) / T^3;
+        
+        Q(i, :) = polyval([a3, a2, a1, a0], timp);
+        dQ(i, :) = polyval(polyder([a3, a2, a1, a0]), timp);
+        ddQ(i, :) = polyval(polyder(polyder([a3, a2, a1, a0])), timp);
+    end
+end
+
+
+function [Q, dQ, ddQ] = quinticTrajectory(q, T, n, timp)
+    % q: matrice 2x2 de poziții (q0, q1)
+    % T: timpul total
+    % n: numărul de pași
+    % timp: vectorul de timp
+    
+    Q = zeros(2, n);
+    dQ = zeros(2, n);
+    ddQ = zeros(2, n);
+    
+    for i = 1:2
+        % Matricea pentru coeficientii polinomului quintic
+        A = [1, 0, 0, 0, 0, 0;
+             0, 1, 0, 0, 0, 0;
+             0, 0, 2, 0, 0, 0;
+             1, T, T^2, T^3, T^4, T^5;
+             0, 1, 2*T, 3*T^2, 4*T^3, 5*T^4;
+             0, 0, 2, 6*T, 12*T^2, 20*T^3];
+         
+        b = [q(i, 1); 0; 0; q(i, 2); 0; 0];
+        
+        % Rezolvarea pentru coeficienti
+        coeff = A \ b;
+        
+        % Calcularea traiectoriei, vitezei și accelerației
+        Q(i, :) = polyval(coeff, timp);
+        dQ(i, :) = polyval(polyder(coeff), timp);
+        ddQ(i, :) = polyval(polyder(polyder(coeff)), timp);
+    end
+end
+
+
+% Scriptul principal care apelează funcția trajectoryPlanner
+
+% Definirea parametrilor
+q = [0, 10;   % poziția inițială și finală pe axa x (poziție 0 și 10)
+     0, 5];   % poziția inițială și finală pe axa y (poziție 0 și 5)
+
+T = 5;        % Timpul total pentru traiectorie (de exemplu 5 secunde)
+n = 100;      % Numărul de pași (100 de puncte pentru traiectorie)
+
+% Alegerea tipului de polinom
+polyType = 'quintic'; % Opțiuni: 'cubic' sau 'quintic'
+
+% Apelarea funcției care calculează traiectoria
+% Functia va returna pozitiile, viteza si acceleratia pentru fiecare cuplu de roti
+[Q, dQ, ddQ] = trajectoryPlanner(q, T, n, 1, polyType);
+
+% Afișarea rezultatelor
+disp('Pozitia (Q):');
+disp(Q);
+disp('Viteza (dQ):');
+disp(dQ);
+disp('Accelerația (ddQ):');
+disp(ddQ);
+
+
+
