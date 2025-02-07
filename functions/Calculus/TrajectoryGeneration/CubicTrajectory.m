@@ -1,19 +1,21 @@
 
-function [Q, dQ, ddQ] = CubicTrajectory(q, T, n)
+function [Q, dQ, ddQ] = CubicTrajectory(jointLimits, totalTime, samplingPoints)
 
-    timp=linspace(0,T,n);
-    Q = zeros(3, n);
-    dQ = zeros(3, n);
-    ddQ = zeros(3, n);
+    time = linspace(0,totalTime,samplingPoints);
+
+    Q    = zeros(3, samplingPoints);
+    dQ   = zeros(3, samplingPoints);
+    ddQ  = zeros(3, samplingPoints);
     
     for i = 1:3
-        a0 = q(i, 1);
+        a0 = jointLimits(i, 1);
         a1 = 0;
-        a2 = 3 * (q(i, 2) - q(i, 1)) / T^2;
-        a3 = -2 * (q(i, 2) - q(i, 1)) / T^3;
+        a2 =  3 * (jointLimits(i, 2) - jointLimits(i, 1)) / totalTime^2;
+        a3 = -2 * (jointLimits(i, 2) - jointLimits(i, 1)) / totalTime^3;
         
-        Q(i, :) = polyval([a3, a2, a1, a0], timp);
-        dQ(i, :) = polyval(polyder([a3, a2, a1, a0]), timp);
-        ddQ(i, :) = polyval(polyder(polyder([a3, a2, a1, a0])), timp);
+         Q(i, :) = polyval([a3, a2, a1, a0], time);
+        dQ(i, :) = polyval(polyder([a3, a2, a1, a0]), time);
+       ddQ(i, :) = polyval(polyder(polyder([a3, a2, a1, a0])), time);
     end
+
 end

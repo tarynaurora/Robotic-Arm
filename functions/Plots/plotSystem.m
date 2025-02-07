@@ -1,12 +1,15 @@
 
-function plotSystem(arm1, arm2, arm3)
+function plotSystem(arm1, arm2, arm3, holdPlot)
 
 % This function creates a new figure for the robotic arm visualization
 
 %_______________________________Settings_________________________________
 
-hold on;
-grid on; 
+if holdPlot == 1
+    hold on;
+    grid on;
+end
+
 set(gca, 'Color', 'k'); % Set background color to black
 set(gca, 'GridColor', [0.85, 0.80, 0.90], 'GridAlpha', 0.5); 
 
@@ -26,7 +29,7 @@ zlabel('Z-axis', 'Color', labelColor);
 
 % Set equal axis scaling and define axis limits
 axis equal;
-axis([-3, 3, -3, 3, -3, 3]); 
+axis([-5, 5, -5, 5, -5, 5]); 
 
 % Title
 title('3D Visualization of Robotic Arm', 'Color', [0.60, 0.50, 0.70]); 
@@ -83,6 +86,8 @@ plot3(arm3(1,2), arm3(2,2), arm3(3,2), 'd', ...
     'LineWidth', markerProps.LineWidth); 
 %_______________________________________________________________
 
-hold off; % Release the hold on the figure
+if holdPlot == 1
+    hold off;
+end
 
 end

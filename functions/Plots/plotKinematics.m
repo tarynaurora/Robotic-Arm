@@ -22,7 +22,7 @@ figure;
         clf;
 
         % Call the plotting function for the robotic arm
-        plotSystem(arm1, arm2, arm3);
+        plotSystem(arm1, arm2, arm3, 1);
 
         
         xlabel 'x'
